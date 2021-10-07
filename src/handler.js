@@ -7,8 +7,6 @@ const { getContracts } = require('./getContracts')
 async function handler(event) {
   const rinkebyRelayer = new Relayer(event);
   const {
-    mumbaiRelayerApiKey,
-    mumbaiRelayerSecret,
     infuraApiKey
   } = event.secrets;
   
@@ -16,7 +14,7 @@ async function handler(event) {
     drawBeacon,
   } = getContracts(infuraApiKey)
 
-  const nextDrawId = await drawBeacon.nextDrawId()
+  const nextDrawId = await drawBeacon.getNextDrawId()
   const getLastRngRequestId = await drawBeacon.getLastRngRequestId()
   const beaconPeriodStartedAt = await drawBeacon.getBeaconPeriodStartedAt()
   const isBeaconPeriodOver = await drawBeacon.isRngRequested()
