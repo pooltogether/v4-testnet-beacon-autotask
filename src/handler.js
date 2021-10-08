@@ -1,4 +1,3 @@
-const ethers = require('ethers')
 const { Relayer } = require('defender-relay-client');
 const { getContracts } = require('./getContracts')
 
