@@ -1,17 +1,15 @@
 const { Relayer } = require('defender-relay-client');
-const { getContracts } = require('./getContracts')
+const { getContracts: getHandlerContracts } = require('./utils/getContracts')
 
-
-
-async function handler(event) {
+async function handler(event: any) {
   const rinkebyRelayer = new Relayer(event);
   const {
     infuraApiKey
   } = event.secrets;
-  
+
   const {
     drawBeacon,
-  } = getContracts(infuraApiKey)
+  } = getHandlerContracts(infuraApiKey)
 
   const nextDrawId = await drawBeacon.getNextDrawId()
   const getLastRngRequestId = await drawBeacon.getLastRngRequestId()
@@ -22,7 +20,7 @@ async function handler(event) {
   console.log('DrawBeacon Beacon PeriodStartedAt:', beaconPeriodStartedAt.toString())
   console.log('DrawBeacon Beacon PeriodSeconds:', beaconPeriodSeconds.toString())
   console.log('DrawBeacon Beacon PeriodOver:', isBeaconPeriodOver)
-  
+
   console.log('DrawBeacon next Draw.drawId:', nextDrawId)
   console.log('DrawBeacon RNG ID:', getLastRngRequestId)
 

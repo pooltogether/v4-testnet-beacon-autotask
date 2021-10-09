@@ -5,6 +5,9 @@
   "main": "src/cli.js",
   "author": "Brendan Asselstine <brendan@pooltogether.com>",
   "license": "MIT",
+  "bin": {
+    "ts-node": "./node_modules/bin/ts-node "
+  },
   "dependencies": {
     "@ethersproject/abstract-provider": "^5.1.0",
     "@ethersproject/abstract-signer": "^5.1.0",
@@ -15,12 +18,13 @@
     "commander": "^6.1.0",
     "defender-autotask-client": "^1.5.1",
     "defender-relay-client": "^0.2.4",
-    "ethers": "^5.0.14"
+    "ethers": "^5.0.14",
+    "ts-node": "^10.2.1"
   },
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "update": "yarn build && ./scripts/updateTask.js",
-    "start": "/usr/bin/env node ./src/cli.js",
+    "start": "ts-node ./src/cli.ts",
     "reinstall": "rm -rf node_modules/ && yarn cache clean && yarn"
   },
   "devDependencies": {
