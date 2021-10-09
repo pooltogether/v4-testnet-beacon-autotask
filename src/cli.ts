@@ -1,15 +1,15 @@
-const { handler } = require('./handler')
+const action = require('./handler')
 
 // To run locally (this code will not be executed in Autotasks)
 if (require.main === module) {
-  const { 
+  const {
     RINKEBY_RELAYER_API_KEY: rinkebyRelayerAbiKey,
     RINKEBY_RELAYER_SECRET: rinkebyRelayerSecret,
     MUMBAI_RELAYER_API_KEY: mumbaiRelayerApiKey,
     MUMBAI_RELAYER_SECRET: mumbaiRelayerSecret,
     INFURA_API_KEY: infuraApiKey
   } = process.env;
-  handler({
+  action.handler({
     apiKey: rinkebyRelayerAbiKey,
     apiSecret: rinkebyRelayerSecret,
     secrets: {
@@ -17,5 +17,5 @@ if (require.main === module) {
     }
   })
     .then(() => process.exit(0))
-    .catch(error => { console.error(error); process.exit(1); });
+    .catch((error: Error) => { console.error(error); process.exit(1); });
 }

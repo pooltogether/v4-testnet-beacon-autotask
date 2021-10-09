@@ -14,7 +14,7 @@ const baseConfig = {
 export default [
   {
     ...baseConfig,
-    input: 'src/handler.js',
+    input: 'src/handler.ts',
     output: {
       file: 'dist/handler-bundle.js',
       format: 'cjs',
