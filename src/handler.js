@@ -14,7 +14,6 @@ async function handler(event) {
   } = getContracts(infuraApiKey)
 
   const nextDrawId = await drawBeacon.getNextDrawId()
-  const getLastRngRequestId = await drawBeacon.getLastRngRequestId()
   const beaconPeriodStartedAt = await drawBeacon.getBeaconPeriodStartedAt()
   const isBeaconPeriodOver = await drawBeacon.isRngRequested()
   const beaconPeriodSeconds = await drawBeacon.getBeaconPeriodSeconds()
@@ -24,7 +23,6 @@ async function handler(event) {
   console.log('DrawBeacon Beacon PeriodOver:', isBeaconPeriodOver)
   
   console.log('DrawBeacon next Draw.drawId:', nextDrawId)
-  console.log('DrawBeacon RNG ID:', getLastRngRequestId)
 
   console.log('Is RNG Requested:', await drawBeacon.isRngRequested())
   console.log('Can Start Draw:', await drawBeacon.canStartDraw())
