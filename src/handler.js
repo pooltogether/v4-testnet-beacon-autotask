@@ -1,8 +1,6 @@
 const { Relayer } = require('defender-relay-client');
 const { getContracts } = require('./getContracts')
 
-
-
 async function handler(event) {
   const rinkebyRelayer = new Relayer(event);
   const {
