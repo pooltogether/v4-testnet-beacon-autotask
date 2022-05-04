@@ -15,13 +15,15 @@
     "commander": "^6.1.0",
     "defender-autotask-client": "^1.5.1",
     "defender-relay-client": "^0.2.4",
-    "ethers": "^5.0.14"
+    "ethers": "^5.6.5"
   },
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "update": "yarn build && ./scripts/updateTask.js",
-    "start": "/usr/bin/env node ./src/cli.js",
-    "reinstall": "rm -rf node_modules/ && yarn cache clean && yarn"
+    "cli": "/usr/bin/env node ./src/cli.js",
+    "reinstall": "rm -rf node_modules/ && yarn cache clean && yarn",
+    "update-rinkeby": "yarn update -a ceadb6ec-0e26-49f0-8796-af39a00c7a04 -f dist/rinkebyHandler.js",
+    "update-tokenomics-testnet": "yarn update -a cf0defd9-57e3-4358-a455-7eca3414f720 -f dist/tokenomicsTestnetHandler.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^15.1.0",

@@ -1,15 +1,16 @@
 const { Relayer } = require('defender-relay-client');
-const { getContracts } = require('./getContracts')
+const DrawBeaconArtifact = require('@pooltogether/v4-testnet/artifacts/@pooltogether/v4-core/contracts/DrawBeacon.sol/DrawBeacon.json')
+const ethers = require('ethers')
 
-async function handler(event) {
-  const rinkebyRelayer = new Relayer(event);
+async function drawBeaconHandler(event, networkName, drawBeaconAddress) {
+  const relayer = new Relayer(event);
   const {
     infuraApiKey
   } = event.secrets;
-  
-  const {
-    drawBeacon,
-  } = getContracts(infuraApiKey)
+
+  const rpcUrl = `https://${networkName}.infura.io/v3/${infuraApiKey}`
+  const provider = new ethers.providers.JsonRpcProvider(rpcUrl)
+  const drawBeacon = new ethers.Contract(drawBeaconAddress, DrawBeaconArtifact.abi, provider)
 
   const nextDrawId = await drawBeacon.getNextDrawId()
   const beaconPeriodStartedAt = await drawBeacon.getBeaconPeriodStartedAt()
@@ -29,7 +30,7 @@ async function handler(event) {
   if (await drawBeacon.canStartDraw()) {
     console.log(`Starting draw ${nextDrawId}...`)
     const tx = await drawBeacon.populateTransaction.startDraw()
-    const txRes = await rinkebyRelayer.sendTransaction({
+    const txRes = await relayer.sendTransaction({
       data: tx.data,
       to: tx.to,
       speed: 'fast',
@@ -42,7 +43,7 @@ async function handler(event) {
   if (await drawBeacon.canCompleteDraw()) {
     console.log(`Completing draw ${nextDrawId}...`)
     const tx = await drawBeacon.populateTransaction.completeDraw()
-    const txRes = await rinkebyRelayer.sendTransaction({
+    const txRes = await relayer.sendTransaction({
       data: tx.data,
       to: tx.to,
       speed: 'fast',
@@ -54,4 +55,4 @@ async function handler(event) {
   console.log("Handler Complete!")
 }
 
-exports.handler = handler
+exports.drawBeaconHandler = drawBeaconHandler

@@ -14,9 +14,18 @@ const baseConfig = {
 export default [
   {
     ...baseConfig,
-    input: 'src/handler.js',
+    input: 'src/rinkebyHandler.js',
     output: {
-      file: 'dist/handler-bundle.js',
+      file: 'dist/rinkebyHandler.js',
+      format: 'cjs',
+      exports: 'named'
+    }
+  },
+  {
+    ...baseConfig,
+    input: 'src/tokenomicsTestnetHandler.js',
+    output: {
+      file: 'dist/tokenomicsTestnetHandler.js',
       format: 'cjs',
       exports: 'named'
     }
